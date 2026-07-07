@@ -179,13 +179,8 @@
     color:var(--cream-50);
   }
   .hero-media{ position:absolute; inset:0; z-index:0; overflow:hidden; }
-  .hero-media img{
+  .hero-media video{
     width:100%; height:100%; object-fit:cover;
-    animation:kenburns 18s ease-in-out infinite alternate;
-  }
-  @keyframes kenburns{
-    0%{ transform:scale(1) translate(0,0); }
-    100%{ transform:scale(1.14) translate(-2%,-2%); }
   }
   .hero-scrim{
     position:absolute; inset:0; z-index:1;
@@ -459,7 +454,7 @@
 
   <section class="hero" id="top">
     <div class="hero-media" aria-hidden="true">
-      <img src="assets/lawn-stripes.jpg" alt="">
+      <video src="assets/8094032-hd_1920_1080_30fps.mp4" autoplay muted loop playsinline preload="auto" poster="assets/lawn-stripes.jpg"></video>
     </div>
     <div class="hero-scrim" aria-hidden="true"></div>
     <div class="hero-content">
@@ -716,6 +711,10 @@
 
   // Reveal on scroll
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Pause hero video for reduced-motion users; poster image shows instead
+  const heroVideo = document.querySelector('.hero-media video');
+  if (heroVideo && prefersReduced) heroVideo.pause();
   const revealEls = document.querySelectorAll('.reveal');
   if (prefersReduced) {
     revealEls.forEach(el => el.classList.add('in'));
